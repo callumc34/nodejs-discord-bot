@@ -1,7 +1,8 @@
 const fs = require("fs");
+const EventEmitter = require("events");
 
 module.exports = {
-    Command: class Command {
+    Command: class Command extends EventEmitter {
         /**
         * @param {string} name - name of command
         * @param {Array<string>} required - parameters to run command
@@ -9,6 +10,7 @@ module.exports = {
         * @param {Array<Permission Flag>} privileges - required privileges to run the command
         */
         constructor (name, required, privileges, optional = []) {
+            super();
             this.name = name;
             this.required = required;
             this.privileges = privileges;
@@ -21,7 +23,7 @@ module.exports = {
          * @param {Array>string>} args - Arguments passed
          * @return {Boolean} - true if successful
          */
-        async _run (ctx, args) {
+        async run (ctx, args) {
             if (args.length < this.required.length) {
                 //Throw error here
                 return false;
@@ -34,14 +36,18 @@ module.exports = {
                 }
             }
 
-            return true;
+            return this.emit("ran", ctx, args, this._run(), this);
         }
 
-        async run () {}
+        async _run () {}
     },
 
-    CommandCollection: class CommandCollection {
+    CommandCollection: class CommandCollection extends EventEmitter {
+        /**
+         * Instantiates the event emitter and creates a new object of commands
+         */
         constructor () {
+            super();
             this._commands = {}
         }
 
@@ -70,6 +76,9 @@ module.exports = {
          */
         addCommand (name, command) {
             this._commands[name] = command;
+            this._commands[name].on("ran", (ctx, args, result, command) => {
+                this.emit("ran", ctx, args, result, command);
+            });
             return true;
         }
 
