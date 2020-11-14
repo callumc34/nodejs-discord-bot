@@ -1,0 +1,18 @@
+{
+  "name": "NodeJSDiscordBot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:callumc34/nodejs-discord-bot",
+  "author": "Callum C <callumc34@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "12.4.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "dev": "node start_script.js",
+    "debug": "node inspect start_script.js"
+  }
+}

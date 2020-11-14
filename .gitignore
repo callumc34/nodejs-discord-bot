@@ -1,0 +1,8 @@
+# Node packages
+node_modules
+
+# Custom env variables
+.env
+
+# Dev test script
+start_script.js
