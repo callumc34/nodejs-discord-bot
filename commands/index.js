@@ -36,7 +36,7 @@ module.exports = {
                 }
             }
 
-            return this.emit("ran", ctx, args, this._run(), this);
+            return this.emit("ran", ctx, args, this._run(ctx, args), this);
         }
 
         async _run () {}
@@ -63,7 +63,7 @@ module.exports = {
             folders.filter(folder => !folder.isFile())
             .forEach((folder) => {
                 const command = require(directory + "/" + folder.name);
-                this.addCommand(folder.name, command);
+                this.addCommand(folder.name, new command());
             });
 
             return true;
@@ -75,10 +75,10 @@ module.exports = {
          * @return {Boolean} - true returned
          */
         addCommand (name, command) {
-            this._commands[name] = command;
-            this._commands[name].on("ran", (ctx, args, result, command) => {
+            command.on("ran", (ctx, args, result, command) => {
                 this.emit("ran", ctx, args, result, command);
             });
+            this._commands[name] = command;
             return true;
         }
 

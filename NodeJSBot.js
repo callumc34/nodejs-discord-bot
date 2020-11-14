@@ -29,8 +29,6 @@ module.exports = class NodeJSBot extends Client {
             this.loaded = false;
         });
 
-        this.commandCollection;
-
         return this.loaded;
     }
 
@@ -39,20 +37,20 @@ module.exports = class NodeJSBot extends Client {
      * @return {Result of run function}
      */
     async messageHandler (message) {
-        if (message.author.bot || !this.loaded || !message.content.startsWith(this.prefix)) return false;
+        if (message.author.bot || !this.loaded || !message.content.startsWith(this.prefix)) 
+            return false;
 
         const args = message.content.slice(this.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
 
         const cmd = this.commandCollection.fetchCommand(command);
-        
+       
         if (!cmd) {
             //Throw error
             return false;
         }
 
-        const runCmd = new cmd();
-        return await runCmd.run(message, args);
+        return await cmd.run(message, args);
 
     }
 }

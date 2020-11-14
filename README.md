@@ -15,15 +15,16 @@ const { NodeJSBot } = require(".");
 
 dotenv.config();
 
-bot = new NodeJSBot(process.env.PREFIX);
+bot = new NodeJSBot(process.env.BOT_PREFIX);
 
 bot.once("ready", () => {
+    bot.commandCollection.loadCommands();
     console.log("Bot ready...");
 });
 
-bot.on("message", message => {
-    bot.messageHandler(message);
-})
+bot.on("message", bot.messageHandler);
+
+bot.commandCollection.on("ran", console.log);
 
 bot.initialise(process.env.BOT_TOKEN);
 ```
@@ -37,28 +38,24 @@ Firstly make a folder with an index.js in your commands location.
 The default is the commands folder however you can add commands from any directory.
 
 To make your own commands you simply need to inherit the Command class from the command folder and build on this by making your own .run() function.
+
 There is a built in command checker in the command class called _run which checks privileges and argument length or you can make your own checker in your command class.
 
+Once the command is ran the commandCollection will emit a "ran" event
 ### Example bot command
 ```js
 const { Command } = require("..");
 
-module.exports = class DeletePostCommand extends Command {
+module.exports = class TestCommand extends Command {
                 constructor () {
                         super(
-                                "delete",
-                                 ["id"],
+                                "test",
+                                  [],
                                   []);
                 }
 
-                async run (ctx, args) {
-                        let runnable = await this._run(ctx, args);
-                        if (!runnable) {
-                                //Ensure that the command can be run
-                                return false;
-                        }
-
-                        ctx.channel.send("Deleting post...");
+                async _run (ctx, args) {
+                    ctx.channel.send("Testing...");
                 }
         }
 ```
