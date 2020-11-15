@@ -22,8 +22,6 @@ bot.once("ready", () => {
     console.log("Bot ready...");
 });
 
-bot.on("message", bot.messageHandler);
-
 bot.commandCollection.on("ran", console.log);
 
 bot.initialise(process.env.BOT_TOKEN);
