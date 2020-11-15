@@ -75,6 +75,10 @@ module.exports = {
          * @return {Boolean} - true returned
          */
         addCommand (name, command) {
+            if (!Command.isPrototypeOf(command)) {
+                //Check that class inherits from Command
+                return false;
+            }
             command.on("ran", (ctx, args, result, command) => {
                 this.emit("ran", ctx, args, result, command);
             });
