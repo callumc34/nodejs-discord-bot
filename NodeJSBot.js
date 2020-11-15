@@ -12,6 +12,7 @@ module.exports = class NodeJSBot extends Client {
         this.commandCollection = new CommandCollection();
         this.loaded = false;
         this.prefix = prefix;
+        this.on("message", this.messageHandler);
     }
 
     /**

@@ -1,18 +1,32 @@
 {
-  "name": "NodeJSDiscordBot",
+  "name": "nodejsdiscordbot",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:callumc34/nodejs-discord-bot",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/callumc34/nodejs-discord-bot.git"
+  },
   "author": "Callum C <callumc34@hotmail.com>",
   "license": "MIT",
   "dependencies": {
     "discord.js": "12.4.1",
     "dotenv": "^8.2.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
     "dev": "node start_script.js",
     "debug": "node inspect start_script.js"
-  }
+  },
+  "keywords": [
+    "discordjs",
+    "discord",
+    "discord.js",
+    "custombot",
+    "discordbot"
+  ],
+  "description": "This bot is designed to be easily forkable to create your own bot and setup using nodejs.",
+  "bugs": {
+    "url": "https://github.com/callumc34/nodejs-discord-bot/issues"
+  },
+  "homepage": "https://github.com/callumc34/nodejs-discord-bot#readme"
 }
