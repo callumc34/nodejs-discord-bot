@@ -1,8 +1,7 @@
 const fs = require("fs");
 const EventEmitter = require("events");
 
-module.exports = {
-    Command: class Command extends EventEmitter {
+const Command = class Command extends EventEmitter {
         /**
         * @param {string} name - name of command
         * @param {Array<string>} required - parameters to run command
@@ -41,9 +40,9 @@ module.exports = {
         }
 
         async _run () {}
-    },
+    }
 
-    CommandCollection: class CommandCollection extends EventEmitter {
+const CommandCollection = class CommandCollection extends EventEmitter {
         /**
          * Instantiates the event emitter and creates a new object of commands
          */
@@ -71,7 +70,7 @@ module.exports = {
         }
 
         /**
-         * @param {string} name - name of command
+         * @param {string} name - name of co mmand
          * @param {Command} command - command to run
          * @return {Boolean} - true returned
          */
@@ -104,4 +103,8 @@ module.exports = {
             return delete this._commands[name];
         }
     }
+
+module.exports = {
+    Command,
+    CommandCollection,
 }
