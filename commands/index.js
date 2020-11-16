@@ -8,6 +8,7 @@ module.exports = {
         * @param {Array<string>} required - parameters to run command
         * @param {Array<string>} optional = optional parameters to run the command
         * @param {Array<Permission Flag>} privileges - required privileges to run the command
+        * Privilege flags can be found at - https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS
         */
         constructor (name, required, privileges, optional = []) {
             super();
@@ -30,7 +31,7 @@ module.exports = {
             }
 
             for (let permission of this.privileges) {
-                if (!ctx.client.hasPermission(permission, true)) {
+                if (!ctx.member.hasPermission(permission, true)) {
                     //if user does not have permission
                     return false;
                 }
