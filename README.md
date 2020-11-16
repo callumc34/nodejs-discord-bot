@@ -38,6 +38,7 @@ The default is the commands folder however you can add commands from any directo
 To make your own commands you simply need to inherit the Command class from the command folder and build on this by making your own .run() function.
 
 There is a built in command checker in the command class called _run which checks privileges and argument length or you can make your own checker in your command class.
+
 Once the command is ran the commandCollection will emit a "ran" event
 ### Example bot command
 ```js
@@ -56,7 +57,6 @@ module.exports = class TestCommand extends Command {
                 }
         }
 ```
-
 #### Adding the command to the bot
 
 To load the commands simply call the {BOT_OBJECT}.commandCollection.loadCommands({optional directory}).

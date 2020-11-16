@@ -27,13 +27,13 @@ module.exports = {
         async run (ctx, args) {
             if (args.length < this.required.length) {
                 //Throw error here
-                return false;
+                return this.emit("argError", ctx, args, this);
             }
 
             for (let permission of this.privileges) {
                 if (!ctx.member.hasPermission(permission, true)) {
                     //if user does not have permission
-                    return false;
+                    return this.emit("permissionError", ctx, args, this);
                 }
             }
 
