@@ -75,7 +75,7 @@ const CommandCollection = class CommandCollection extends EventEmitter {
          * @return {Boolean} - true returned
          */
         addCommand (name, command) {
-            if (!Command.isPrototypeOf(command)) {
+            if (!Command.isPrototypeOf(command.constructor)) {
                 //Check that class inherits from Command
                 return false;
             }
