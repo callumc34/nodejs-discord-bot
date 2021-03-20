@@ -36,7 +36,7 @@ const Command = class Command extends EventEmitter {
                 }
             }
 
-            return this.emit("ran", ctx, args, this._run(ctx, args), this);
+            return this.emit("ran", ctx, args, await this._run(ctx, args), this);
         }
 
         async _run () {}
@@ -70,7 +70,6 @@ const CommandCollection = class CommandCollection extends EventEmitter {
         }
 
         /**
-         * @param {string} name - name of co mmand
          * @param {Command} command - command to run
          * @return {Boolean} - true returned
          */
