@@ -33,7 +33,6 @@ const Command = class Command extends EventEmitter {
             if (typeof this.config != "undefined") {
                 if (this.config.banned.includes(ctx.guild.id)
                     || this.config.banned.includes(ctx.channel.id)) {
-                    ctx.channel.send("Banned command");
                     return this.emit("bannedCommand", ctx, args, this);
                 }
             }
