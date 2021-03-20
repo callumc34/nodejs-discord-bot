@@ -73,7 +73,7 @@ const CommandCollection = class CommandCollection extends EventEmitter {
          * @param {Command} command - command to run
          * @return {Boolean} - true returned
          */
-        addCommand (command) {
+        addCommand (name, command) {
             if (!Command.isPrototypeOf(command.constructor)) {
                 //Check that class inherits from Command
                 return false;
@@ -81,7 +81,7 @@ const CommandCollection = class CommandCollection extends EventEmitter {
             command.on("ran", (ctx, args, result, command) => {
                 this.emit("ran", ctx, args, result, command);
             });
-            this._commands[command.name] = command;
+            this._commands[name] = command;
             return true;
         }
 
