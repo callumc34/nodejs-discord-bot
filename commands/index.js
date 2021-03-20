@@ -29,6 +29,15 @@ const Command = class Command extends EventEmitter {
                 return this.emit("argError", ctx, args, this);
             }
 
+            //Run command config checks
+            if (typeof this.config != "undefined") {
+                if (this.config.banned.includes(ctx.guild.id)
+                    || this.config.banned.includes(ctx.channel.id)) {
+                    ctx.channel.send("Banned command");
+                    return this.emit("bannedCommand", ctx, args, this);
+                }
+            }
+
             for (let permission of this.privileges) {
                 if (!ctx.member.hasPermission(permission, true)) {
                     //if user does not have permission
@@ -46,8 +55,9 @@ const CommandCollection = class CommandCollection extends EventEmitter {
         /**
          * Instantiates the event emitter and creates a new object of commands
          */
-        constructor () {
+        constructor (commandConfig) {
             super();
+            this.commandConfig = commandConfig;
             this._commands = {}
         }
 
@@ -78,6 +88,9 @@ const CommandCollection = class CommandCollection extends EventEmitter {
                 //Check that class inherits from Command
                 return false;
             }
+
+            command.config = this.commandConfig[name];
+
             command.on("ran", (ctx, args, result, command) => {
                 this.emit("ran", ctx, args, result, command);
             });

@@ -6,10 +6,10 @@ module.exports = class NodeJSBot extends Client {
      * @params {string} prefix - prefix for the bot
      * @params {Object} options - options for the discord bot
      */
-    constructor (prefix, options = {}) {
+    constructor (prefix, commandConfig = {}, options = {}) {
         super(options);
 
-        this.commandCollection = new CommandCollection();
+        this.commandCollection = new CommandCollection(commandConfig);
         this.loaded = false;
         this.prefix = prefix;
         this.on("message", this.messageHandler);
