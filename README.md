@@ -11,7 +11,7 @@ Once this repository is cloned you'll need to make a start_script.js file which 
 ### Example start_script.sh
 ```js
 const dotenv = require("dotenv");
-const { NodeJSBot } = require(".");
+const { NodeJSBot } = require("nodejsdiscordbot");
 
 dotenv.config();
 
@@ -42,7 +42,7 @@ There is a built in command checker in the command class called _run which check
 Once the command is ran the commandCollection will emit a "ran" event
 ### Example bot command
 ```js
-const { Command } = require("..");
+const { Command } = require("nodejsdiscordbot");
 
 module.exports = class TestCommand extends Command {
                 constructor () {
